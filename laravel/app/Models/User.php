@@ -15,6 +15,12 @@ class User extends Authenticatable
         'email',
         'password',
         'role', // 'admin', 'store', 'delivery_person', 'customer', 'guest'
+        'store_name', // Naziv prodavnice
+        'address', // Adresa prodavnice
+        'opening_hours', // Radno vreme
+        'description', // Opis prodavnice
+        'contact_number', // Kontakt broj
+        'logo_url', // URL logoa prodavnice
     ];
 
     protected $hidden = [
