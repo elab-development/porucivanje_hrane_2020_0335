@@ -2,43 +2,75 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role', // 'admin', 'store', 'delivery_person', 'customer', 'guest'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Relacija: Jedan korisnik (prodavnica) može imati više proizvoda
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    // Relacija: Jedan korisnik (kupac) može imati više porudžbina
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    // Relacija: Jedan korisnik (dostavljač) može imati više dostava
+    public function deliveries()
+    {
+        return $this->hasMany(Delivery::class);
+    }
+
+    // Provera da li je korisnik admin
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    // Provera da li je korisnik prodavnica
+    public function isStore()
+    {
+        return $this->role === 'store';
+    }
+
+    // Provera da li je korisnik dostavljač
+    public function isDeliveryPerson()
+    {
+        return $this->role === 'delivery_person';
+    }
+
+    // Provera da li je korisnik kupac
+    public function isCustomer()
+    {
+        return $this->role === 'customer';
+    }
+
+    // Provera da li je korisnik gost
+    public function isGuest()
+    {
+        return $this->role === 'guest';
+    }
 }
