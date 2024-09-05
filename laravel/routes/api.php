@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\LocationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,6 +19,12 @@ use App\Http\Controllers\StoreController;
 
 
 
+
+Route::get('/locations', [LocationController::class, 'index']); // Prikaz svih lokacija
+Route::get('/locations/{id}', [LocationController::class, 'show']); // Prikaz jedne lokacije
+Route::post('/locations', [LocationController::class, 'store'])->middleware('auth:sanctum'); // Kreiranje nove lokacije
+Route::put('/locations/{id}', [LocationController::class, 'update'])->middleware('auth:sanctum'); // Ažuriranje lokacije
+Route::delete('/locations/{id}', [LocationController::class, 'destroy'])->middleware('auth:sanctum'); // Brisanje lokacije
 
 
 Route::get('/products', [ProductController::class, 'index']); // Prikaz svih proizvoda
