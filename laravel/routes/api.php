@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\LocationController;
@@ -17,7 +18,11 @@ use App\Http\Controllers\LocationController;
 |
 */
 
-
+Route::get('/deliveries', [DeliveryController::class, 'index']); // Prikaz svih dostava
+Route::get('/deliveries/{id}', [DeliveryController::class, 'show']); // Prikaz jedne dostave
+Route::post('/deliveries', [DeliveryController::class, 'store'])->middleware('auth:sanctum'); // Kreiranje nove dostave
+Route::put('/deliveries/{id}', [DeliveryController::class, 'update'])->middleware('auth:sanctum'); // Ažuriranje dostave
+Route::delete('/deliveries/{id}', [DeliveryController::class, 'destroy'])->middleware('auth:sanctum'); // Brisanje dostave
 
 
 Route::get('/locations', [LocationController::class, 'index']); // Prikaz svih lokacija
