@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
- 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +18,13 @@ use App\Http\Controllers\StoreController;
 
 
 
+
+
+Route::get('/products', [ProductController::class, 'index']); // Prikaz svih proizvoda
+Route::get('/products/{id}', [ProductController::class, 'show']); // Prikaz jednog proizvoda
+Route::post('/products', [ProductController::class, 'store'])->middleware('auth:sanctum'); // Kreiranje novog proizvoda
+Route::put('/products/{id}', [ProductController::class, 'update'])->middleware('auth:sanctum'); // Ažuriranje proizvoda
+Route::delete('/products/{id}', [ProductController::class, 'destroy'])->middleware('auth:sanctum'); // Brisanje proizvoda
 
 Route::get('/stores', [StoreController::class, 'index']); // Prikaz svih prodavnica
 Route::get('/stores/{id}', [StoreController::class, 'show']); // Prikaz jedne prodavnice
