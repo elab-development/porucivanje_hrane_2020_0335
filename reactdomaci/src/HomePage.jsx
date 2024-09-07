@@ -1,5 +1,6 @@
- 
+// HomePage.js
 import React from 'react';
+import CategoryCard from './CategoryCard'; // Import CategoryCard component
 import './HomePage.css';
 
 const categories = [
@@ -17,13 +18,12 @@ const HomePage = () => {
       <h1>Restorani - Beograd</h1>
       <div className="categories-container">
         {categories.map((category) => (
-          <div className="category-card" key={category.name}>
-            <img src={`${category.imgSrc}`} alt={category.name} className="category-img" />
-            <div className="category-info">
-              <h2>{category.name}</h2>
-              <p>{category.places} mesta</p>
-            </div>
-          </div>
+          <CategoryCard
+            key={category.name}
+            name={category.name}
+            places={category.places}
+            imgSrc={category.imgSrc}
+          />
         ))}
       </div>
     </div>
