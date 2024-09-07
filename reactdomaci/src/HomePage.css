@@ -1,0 +1,47 @@
+/* HomePage.css */
+.homepage {
+    padding: 40px;
+    background-color: #f7f7f7;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .categories-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .category-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(20% - 10px);
+    text-align: center;
+  }
+  
+  .category-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  
+  .category-info {
+    padding: 15px;
+  }
+  
+  .category-info h2 {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .category-info p {
+    font-size: 1rem;
+    color: #888;
+  }
+  
