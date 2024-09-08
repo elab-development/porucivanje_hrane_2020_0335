@@ -57,7 +57,12 @@ const AuthForm = ({ setToken, setUser }) => {
         setUser(response.data.user);
         setSuccess('Login successful!');
         setError(null);
-        navigate('/dashboard');
+        if(response.data.user.role=="store"){
+            navigate('/products');
+        }else{
+            navigate('/dashboard');
+        }
+       
       }
     } catch (err) {
       setError(err.response.data.message || 'An error occurred');
