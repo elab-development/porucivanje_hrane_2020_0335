@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './AuthForm.css';
-const AuthForm = () => {
+const AuthForm = ({ setToken, setUser }) => {
   const [isRegistering, setIsRegistering] = useState(true); // Za prebacivanje između prijave i registracije
   const [formData, setFormData] = useState({
     name: '',
@@ -36,25 +36,23 @@ const AuthForm = () => {
 
     try {
       if (isRegistering) {
-        // Registracija
         const response = await axios.post('http://127.0.0.1:8000/api/register', formData);
-
         sessionStorage.setItem('auth_token', response.data.access_token);
         sessionStorage.setItem('user', JSON.stringify(response.data.user));
-
+        setToken(response.data.access_token);
+        setUser(response.data.user);
         setSuccess('Registration successful!');
         setError(null);
         navigate('/dashboard');
       } else {
-        // Prijava
         const response = await axios.post('http://127.0.0.1:8000/api/login', {
           email: formData.email,
           password: formData.password,
         });
-
         sessionStorage.setItem('auth_token', response.data.access_token);
         sessionStorage.setItem('user', JSON.stringify(response.data.user));
-
+        setToken(response.data.access_token);
+        setUser(response.data.user);
         setSuccess('Login successful!');
         setError(null);
         navigate('/dashboard');
