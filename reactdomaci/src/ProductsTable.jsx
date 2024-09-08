@@ -7,7 +7,9 @@ const ProductsTable = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // Novo stanje za pretragu
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortField, setSortField] = useState('id'); // Stanje za sortiranje po default-u po 'id'
+  const [sortOrder, setSortOrder] = useState('asc'); // Stanje za rastuće ('asc') ili opadajuće ('desc') sortiranje
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -27,11 +29,25 @@ const ProductsTable = () => {
 
   // Funkcija za filtriranje proizvoda po nazivu
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value); // Ažuriramo searchTerm
+    setSearchTerm(e.target.value);
     const filtered = products.filter((product) =>
       product.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
-    setFilteredProducts(filtered); // Ažuriramo filtrirane proizvode
+    setFilteredProducts(filtered);
+  };
+
+  // Funkcija za sortiranje proizvoda po odabranom polju
+  const handleSort = (field) => {
+    const order = sortField === field && sortOrder === 'asc' ? 'desc' : 'asc'; // Ako se klikne isti field, menjamo redosled
+    setSortField(field);
+    setSortOrder(order);
+
+    const sorted = [...filteredProducts].sort((a, b) => {
+      if (a[field] < b[field]) return order === 'asc' ? -1 : 1;
+      if (a[field] > b[field]) return order === 'asc' ? 1 : -1;
+      return 0;
+    });
+    setFilteredProducts(sorted);
   };
 
   if (loading) return <p>Loading products...</p>;
@@ -53,10 +69,18 @@ const ProductsTable = () => {
       <table className="products-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price (RSD)</th>
+            <th onClick={() => handleSort('id')}>
+              ID {sortField === 'id' && (sortOrder === 'asc' ? '▲' : '▼')}
+            </th>
+            <th onClick={() => handleSort('name')}>
+              Name {sortField === 'name' && (sortOrder === 'asc' ? '▲' : '▼')}
+            </th>
+            <th onClick={() => handleSort('description')}>
+              Description {sortField === 'description' && (sortOrder === 'asc' ? '▲' : '▼')}
+            </th>
+            <th onClick={() => handleSort('price')}>
+              Price (RSD) {sortField === 'price' && (sortOrder === 'asc' ? '▲' : '▼')}
+            </th>
           </tr>
         </thead>
         <tbody>
