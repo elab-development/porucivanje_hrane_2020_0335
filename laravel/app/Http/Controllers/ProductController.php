@@ -15,7 +15,12 @@ class ProductController extends Controller
         $products = Product::all();
         return response()->json($products, 200);
     }
-
+    // Prikaz svih proizvoda bez paginacije (ako je potrebno)
+    public function allProducts()
+    {
+        $products = Product::all();
+        return response()->json($products, 200);
+    }
     // Prikaz jednog proizvoda
     public function show($id)
     {

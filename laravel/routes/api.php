@@ -31,12 +31,15 @@ Route::post('/locations', [LocationController::class, 'store'])->middleware('aut
 Route::put('/locations/{id}', [LocationController::class, 'update'])->middleware('auth:sanctum'); // Ažuriranje lokacije
 Route::delete('/locations/{id}', [LocationController::class, 'destroy'])->middleware('auth:sanctum'); // Brisanje lokacije
 
-
+Route::get('/products/all', [ProductController::class, 'allProducts']); // Ruta za sve proizvode bez paginacije
 Route::get('/products', [ProductController::class, 'index']); // Prikaz svih proizvoda
 Route::get('/products/{id}', [ProductController::class, 'show']); // Prikaz jednog proizvoda
 Route::post('/products', [ProductController::class, 'store'])->middleware('auth:sanctum'); // Kreiranje novog proizvoda
 Route::put('/products/{id}', [ProductController::class, 'update'])->middleware('auth:sanctum'); // Ažuriranje proizvoda
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])->middleware('auth:sanctum'); // Brisanje proizvoda
+
+
+
 
 Route::get('/stores', [StoreController::class, 'index']); // Prikaz svih prodavnica
 Route::get('/stores/{id}', [StoreController::class, 'show']); // Prikaz jedne prodavnice

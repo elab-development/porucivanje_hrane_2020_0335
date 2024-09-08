@@ -2,6 +2,7 @@
 import React from 'react';
 import CategoryCard from './CategoryCard'; // Import CategoryCard component
 import './HomePage.css';
+import ProductCards from './ProductCards';
 
 const categories = [
   { name: "Doručak", places: 171, imgSrc: "https://imageproxy.wolt.com/wolt-frontpage-images/categories/2d24d3ee-c5b2-11ea-a452-2e3b484a03e4_331daa86_a0e3_45da_bd06_05f8a6df06f3.jpg-md?w=600" },
@@ -26,6 +27,8 @@ const HomePage = () => {
           />
         ))}
       </div>
+      <h2>Nasa ponuda</h2>
+      <ProductCards></ProductCards>
     </div>
   );
 };
