@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import ProductsTable from './ProductsTable';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AuthForm from './AuthForm';
+import ComingSoon from './ComingSoon';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -28,7 +29,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductsTable />} />
           <Route path="/auth" element={<AuthForm setToken={setToken} setUser={setUser} />} />
-      
+          <Route path="*" element={<ComingSoon />} />
         </Routes>
       </Router>
     </div>

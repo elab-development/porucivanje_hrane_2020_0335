@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <img src="/path-to-logo.png" alt="Wolt" className="logo" />
+        <img src="https://seeklogo.com/images/W/wolt-logo-D13F5348B3-seeklogo.com.png" alt="Wolt" className="logo" />
         <span className="location">
           <i className="location-icon">📍</i> Beograd
         </span>
