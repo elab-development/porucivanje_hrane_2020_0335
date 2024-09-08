@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import PoljeZaUnos from './PoljeZaUnos'; // Import nove komponente
 import './AuthForm.css';
+
 const AuthForm = ({ setToken, setUser }) => {
   const [isRegistering, setIsRegistering] = useState(true); // Za prebacivanje između prijave i registracije
   const [formData, setFormData] = useState({
@@ -68,12 +70,10 @@ const AuthForm = ({ setToken, setUser }) => {
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
       <form onSubmit={handleSubmit}>
-
         {isRegistering && (
           <>
-            <label>Name</label>
-            <input
-              type="text"
+            <PoljeZaUnos
+              label="Name"
               name="name"
               value={formData.name}
               onChange={handleChange}
@@ -82,8 +82,8 @@ const AuthForm = ({ setToken, setUser }) => {
           </>
         )}
 
-        <label>Email</label>
-        <input
+        <PoljeZaUnos
+          label="Email"
           type="email"
           name="email"
           value={formData.email}
@@ -91,8 +91,8 @@ const AuthForm = ({ setToken, setUser }) => {
           required
         />
 
-        <label>Password</label>
-        <input
+        <PoljeZaUnos
+          label="Password"
           type="password"
           name="password"
           value={formData.password}
@@ -102,8 +102,8 @@ const AuthForm = ({ setToken, setUser }) => {
 
         {isRegistering && (
           <>
-            <label>Confirm Password</label>
-            <input
+            <PoljeZaUnos
+              label="Confirm Password"
               type="password"
               name="password_confirmation"
               value={formData.password_confirmation}
@@ -126,46 +126,43 @@ const AuthForm = ({ setToken, setUser }) => {
 
             {formData.role === 'store' && (
               <>
-                <label>Store Name</label>
-                <input
-                  type="text"
+                <PoljeZaUnos
+                  label="Store Name"
                   name="store_name"
                   value={formData.store_name}
                   onChange={handleChange}
                   required
                 />
-                <label>Address</label>
-                <input
-                  type="text"
+                <PoljeZaUnos
+                  label="Address"
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
                   required
                 />
-                <label>Opening Hours</label>
-                <input
-                  type="text"
+                <PoljeZaUnos
+                  label="Opening Hours"
                   name="opening_hours"
                   value={formData.opening_hours}
                   onChange={handleChange}
                   required
                 />
-                <label>Description</label>
-                <textarea
+                <PoljeZaUnos
+                  label="Description"
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
+                  isTextArea
                 />
-                <label>Contact Number</label>
-                <input
-                  type="text"
+                <PoljeZaUnos
+                  label="Contact Number"
                   name="contact_number"
                   value={formData.contact_number}
                   onChange={handleChange}
                   required
                 />
-                <label>Logo URL</label>
-                <input
+                <PoljeZaUnos
+                  label="Logo URL"
                   type="url"
                   name="logo_url"
                   value={formData.logo_url}
