@@ -20,34 +20,39 @@ use App\Http\Controllers\LocationController;
 
 Route::get('/deliveries', [DeliveryController::class, 'index']); // Prikaz svih dostava
 Route::get('/deliveries/{id}', [DeliveryController::class, 'show']); // Prikaz jedne dostave
-Route::post('/deliveries', [DeliveryController::class, 'store'])->middleware('auth:sanctum'); // Kreiranje nove dostave
-Route::put('/deliveries/{id}', [DeliveryController::class, 'update'])->middleware('auth:sanctum'); // Ažuriranje dostave
-Route::delete('/deliveries/{id}', [DeliveryController::class, 'destroy'])->middleware('auth:sanctum'); // Brisanje dostave
 
+// Zaštita PUT, POST, DELETE ruta middleware-om auth:sanctum
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/deliveries', [DeliveryController::class, 'store']); // Kreiranje nove dostave
+    Route::put('/deliveries/{id}', [DeliveryController::class, 'update']); // Ažuriranje dostave
+    Route::delete('/deliveries/{id}', [DeliveryController::class, 'destroy']); // Brisanje dostave
 
+    Route::post('/locations', [LocationController::class, 'store']); // Kreiranje nove lokacije
+    Route::put('/locations/{id}', [LocationController::class, 'update']); // Ažuriranje lokacije
+    Route::delete('/locations/{id}', [LocationController::class, 'destroy']); // Brisanje lokacije
+
+    Route::post('/products', [ProductController::class, 'store']); // Kreiranje novog proizvoda
+    Route::put('/products/{id}', [ProductController::class, 'update']); // Ažuriranje proizvoda
+    Route::delete('/products/{id}', [ProductController::class, 'destroy']); // Brisanje proizvoda
+
+    Route::post('/stores', [StoreController::class, 'store']); // Kreiranje nove prodavnice
+    Route::put('/stores/{id}', [StoreController::class, 'update']); // Ažuriranje prodavnice
+    Route::delete('/stores/{id}', [StoreController::class, 'destroy']); // Brisanje prodavnice
+
+    Route::post('/logout', [AuthController::class, 'logout']); // Odjava korisnika
+
+    Route::get('/products', [ProductController::class, 'index']); // Prikaz svih proizvoda ulogovane prodavnice
+});
+
+// Rute za pretragu i prikaz bez zaštite
 Route::get('/locations', [LocationController::class, 'index']); // Prikaz svih lokacija
 Route::get('/locations/{id}', [LocationController::class, 'show']); // Prikaz jedne lokacije
-Route::post('/locations', [LocationController::class, 'store'])->middleware('auth:sanctum'); // Kreiranje nove lokacije
-Route::put('/locations/{id}', [LocationController::class, 'update'])->middleware('auth:sanctum'); // Ažuriranje lokacije
-Route::delete('/locations/{id}', [LocationController::class, 'destroy'])->middleware('auth:sanctum'); // Brisanje lokacije
-
 Route::get('/products/all', [ProductController::class, 'allProducts']); // Ruta za sve proizvode bez paginacije
-Route::get('/products', [ProductController::class, 'index']); // Prikaz svih proizvoda
+
 Route::get('/products/{id}', [ProductController::class, 'show']); // Prikaz jednog proizvoda
-Route::post('/products', [ProductController::class, 'store'])->middleware('auth:sanctum'); // Kreiranje novog proizvoda
-Route::put('/products/{id}', [ProductController::class, 'update'])->middleware('auth:sanctum'); // Ažuriranje proizvoda
-Route::delete('/products/{id}', [ProductController::class, 'destroy'])->middleware('auth:sanctum'); // Brisanje proizvoda
-
-
-
-
 Route::get('/stores', [StoreController::class, 'index']); // Prikaz svih prodavnica
 Route::get('/stores/{id}', [StoreController::class, 'show']); // Prikaz jedne prodavnice
-Route::post('/stores', [StoreController::class, 'store']); // Kreiranje nove prodavnice
-Route::put('/stores/{id}', [StoreController::class, 'update']); // Ažuriranje prodavnice
-Route::delete('/stores/{id}', [StoreController::class, 'destroy']); // Brisanje prodavnice
 
 // Rute za autentifikaciju korisnika
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');

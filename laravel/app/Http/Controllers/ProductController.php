@@ -12,7 +12,8 @@ class ProductController extends Controller
     // Prikaz svih proizvoda
     public function index()
     {
-        $products = Product::all();
+        $storeId = Auth::id(); // Preuzimanje ID-ja ulogovanog korisnika
+        $products = Product::where('store_id', $storeId)->get(); // Filtriranje proizvoda po store_id
         return response()->json($products, 200);
     }
     // Prikaz svih proizvoda bez paginacije (ako je potrebno)

@@ -45,7 +45,11 @@ const AuthForm = ({ setToken, setUser }) => {
         setUser(response.data.user);
         setSuccess('Registration successful!');
         setError(null);
-        navigate('/dashboard');
+        if(response.data.user.role=="store"){
+          navigate('/products');
+        }else{
+            navigate('/dashboard');
+        }
       } else {
         const response = await axios.post('http://127.0.0.1:8000/api/login', {
           email: formData.email,

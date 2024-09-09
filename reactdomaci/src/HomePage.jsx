@@ -1,6 +1,6 @@
-// HomePage.js
+ 
 import React from 'react';
-import CategoryCard from './CategoryCard'; // Import CategoryCard component
+import CategoryCard from './CategoryCard'; 
 import './HomePage.css';
 import ProductCards from './ProductCards';
 

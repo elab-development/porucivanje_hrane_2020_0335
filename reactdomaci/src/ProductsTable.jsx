@@ -15,6 +15,7 @@ const ProductsTable = () => {
   const [editingProduct, setEditingProduct] = useState(null);
   const [newProduct, setNewProduct] = useState({ name: '', description: '', price: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Dodajemo stanje za modal za uređivanje
 
   const token = sessionStorage.getItem('auth_token'); // Uzimamo token iz sessionStorage
 
@@ -31,7 +32,6 @@ const ProductsTable = () => {
       setProducts(response.data);
       setFilteredProducts(response.data);
       setLoading(false);
-      // Ažuriramo sessionStorage nakon što proizvodi budu preuzeti sa servera
       sessionStorage.setItem('products', JSON.stringify(response.data));
     } catch (err) {
       setError('Failed to fetch products.');
@@ -48,9 +48,8 @@ const ProductsTable = () => {
       const updatedProducts = [...products, response.data];
       setProducts(updatedProducts);
       setFilteredProducts(updatedProducts);
-      setNewProduct({ name: '', description: '', price: '' }); // Resetovanje forme
+      setNewProduct({ name: '', description: '', price: '' });
       setIsModalOpen(false); // Zatvaranje modala
-      // Ažuriramo sessionStorage nakon dodavanja novog proizvoda
       sessionStorage.setItem('products', JSON.stringify(updatedProducts));
     } catch (err) {
       setError('Failed to create product.');
@@ -68,8 +67,8 @@ const ProductsTable = () => {
       );
       setProducts(updatedProducts);
       setFilteredProducts(updatedProducts);
-      setEditingProduct(null); // Zatvaranje forme za ažuriranje
-      // Ažuriramo sessionStorage nakon ažuriranja proizvoda
+      setEditingProduct(null);
+      setIsEditModalOpen(false); // Zatvaranje modala za uređivanje
       sessionStorage.setItem('products', JSON.stringify(updatedProducts));
     } catch (err) {
       setError('Failed to update product.');
@@ -85,7 +84,6 @@ const ProductsTable = () => {
       const updatedProducts = products.filter((product) => product.id !== id);
       setProducts(updatedProducts);
       setFilteredProducts(updatedProducts);
-      // Ažuriramo sessionStorage nakon brisanja proizvoda
       sessionStorage.setItem('products', JSON.stringify(updatedProducts));
     } catch (err) {
       setError('Failed to delete product.');
@@ -160,7 +158,7 @@ const ProductsTable = () => {
               <td>{product.description}</td>
               <td>{product.price}</td>
               <td>
-                <button onClick={() => setEditingProduct(product)}>Edit</button>
+                <button onClick={() => { setEditingProduct(product); setIsEditModalOpen(true); }}>Edit</button>
                 <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
               </td>
             </tr>
@@ -197,29 +195,32 @@ const ProductsTable = () => {
         </div>
       )}
 
-      {/* Forma za ažuriranje proizvoda */}
-      {editingProduct && (
-        <div className="form-container">
-          <h2>Edit Product</h2>
-          <input
-            type="text"
-            placeholder="Product name"
-            value={editingProduct.name}
-            onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
-          />
-          <input
-            type="text"
-            placeholder="Description"
-            value={editingProduct.description}
-            onChange={(e) => setEditingProduct({ ...editingProduct, description: e.target.value })}
-          />
-          <input
-            type="number"
-            placeholder="Price"
-            value={editingProduct.price}
-            onChange={(e) => setEditingProduct({ ...editingProduct, price: e.target.value })}
-          />
-          <button onClick={handleUpdateProduct}>Update Product</button>
+      {/* Modal za uređivanje proizvoda */}
+      {isEditModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close-btn" onClick={() => setIsEditModalOpen(false)}>&times;</span>
+            <h2>Edit Product</h2>
+            <input
+              type="text"
+              placeholder="Product name"
+              value={editingProduct?.name}
+              onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Description"
+              value={editingProduct?.description}
+              onChange={(e) => setEditingProduct({ ...editingProduct, description: e.target.value })}
+            />
+            <input
+              type="number"
+              placeholder="Price"
+              value={editingProduct?.price}
+              onChange={(e) => setEditingProduct({ ...editingProduct, price: e.target.value })}
+            />
+            <button onClick={handleUpdateProduct}>Update Product</button>
+          </div>
         </div>
       )}
     </div>
