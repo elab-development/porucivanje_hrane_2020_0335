@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Kreiranje Admin korisnika
         User::create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
+        // Kreiranje Store korisnika
         User::create([
             'name' => 'Store User',
             'email' => 'store@example.com',
@@ -36,6 +38,14 @@ class DatabaseSeeder extends Seeder
             'opening_hours' => '9:00 - 18:00',
             'contact_number' => '123456789',
             'description' => 'Local store',
+        ]);
+
+        // Kreiranje običnog User-a (regularan korisnik)
+        User::create([
+            'name' => 'Regular User',
+            'email' => 'user@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'user', // Ova vrednost ukazuje da nije admin ni store
         ]);
 
         // Kreiranje dve lokacije

@@ -1,0 +1,64 @@
+.my-orders-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .my-orders-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .my-orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .my-orders-table th,
+  .my-orders-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .my-orders-table th {
+    background-color: #007aff;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .my-orders-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .my-orders-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .my-orders-table td {
+    color: #555;
+  }
+  
+  .generate-invoice-btn {
+    padding: 8px 15px;
+    background-color: #007aff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .generate-invoice-btn:hover {
+    background-color: #005bb5;
+  }
+  
+  .generate-invoice-btn:focus {
+    outline: none;
+  }
+  

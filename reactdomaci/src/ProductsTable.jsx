@@ -33,6 +33,7 @@ const ProductsTable = () => {
       setFilteredProducts(response.data);
       setLoading(false);
       sessionStorage.setItem('products', JSON.stringify(response.data));
+      localStorage.clear();
     } catch (err) {
       setError('Failed to fetch products.');
       setLoading(false);
@@ -51,6 +52,7 @@ const ProductsTable = () => {
       setNewProduct({ name: '', description: '', price: '' });
       setIsModalOpen(false); // Zatvaranje modala
       sessionStorage.setItem('products', JSON.stringify(updatedProducts));
+      localStorage.clear();
     } catch (err) {
       setError('Failed to create product.');
     }
@@ -70,6 +72,7 @@ const ProductsTable = () => {
       setEditingProduct(null);
       setIsEditModalOpen(false); // Zatvaranje modala za uređivanje
       sessionStorage.setItem('products', JSON.stringify(updatedProducts));
+      localStorage.clear();
     } catch (err) {
       setError('Failed to update product.');
     }

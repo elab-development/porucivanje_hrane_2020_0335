@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { jsPDF } from "jspdf";
 import QRCode from "qrcode";
+import './MyOrders.css'; // Importovanje CSS fajla
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -75,9 +76,9 @@ const MyOrders = () => {
   };
 
   return (
-    <div>
+    <div className="my-orders-container">
       <h2>Moje Porudžbine</h2>
-      <table>
+      <table className="my-orders-table">
         <thead>
           <tr>
             <th>Order ID</th>
@@ -99,7 +100,9 @@ const MyOrders = () => {
               <td>{new Date(`1970-01-01T${order.estimated_time}`).toLocaleTimeString()}</td>
               <td>{order.status === "delivered" ? "Delivered" : "In Progress"}</td>
               <td>
-                <button onClick={() => generatePDF(order)}>Preuzmi Fiskalni Račun</button>
+                <button className="generate-invoice-btn" onClick={() => generatePDF(order)}>
+                  Preuzmi Fiskalni Račun
+                </button>
               </td>
             </tr>
           ))}

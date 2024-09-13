@@ -6,7 +6,7 @@ const AddOrder = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const [deliveryPersonId, setDeliveryPersonId] = useState('');
+  const [deliveryPersonId, setDeliveryPersonId] = useState('1');
   const [estimatedTime, setEstimatedTime] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -97,16 +97,7 @@ const AddOrder = () => {
             onChange={handleQuantityChange}
             min="1"
           />
-        </div>
-
-        <div className="form-group">
-          <label>ID dostavljača:</label>
-          <input
-            type="text"
-            value={deliveryPersonId}
-            onChange={(e) => setDeliveryPersonId(e.target.value)}
-          />
-        </div>
+        </div> 
 
         <div className="form-group">
           <label>Procenjeno vreme isporuke:</label>

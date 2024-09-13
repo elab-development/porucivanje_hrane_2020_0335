@@ -39,20 +39,21 @@ const Navbar = () => {
             <Link to="/auth">Prijava</Link>
             <Link to="/auth">Registracija</Link>
           </>
-        ) : user.role === 'admin' ? (
-          // Rute za admina
+        ) : user.role === 'store' ? (
+         // Rute za korisnika koji je store
           <>
-            <Link to="/dashboard">Dashboard</Link>
-            <Link to="/users">Korisnici</Link>
+           
             <Link to="/products">Proizvodi</Link>
             <button onClick={handleLogout}>Odjava</button>
           </>
-        ) : user.role === 'store' ? (
-          // Rute za korisnika koji je store
+        ) : user.role === 'user' ? (
+         
           <>
             <Link to="/dashboard">Moja Prodavnica</Link>
-            <Link to="/products">Proizvodi</Link>
+            
             <Link to="/orders">Porudžbine</Link>
+            <Link to="/add">Poruci</Link>
+
             <button onClick={handleLogout}>Odjava</button>
           </>
         ) : (
