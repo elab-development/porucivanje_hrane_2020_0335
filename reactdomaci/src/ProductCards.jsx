@@ -7,10 +7,12 @@ const ProductCards = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const placeholderImage = 'https://via.placeholder.com/150?text=No+Image'; // Placeholder for missing images
+  const CACHE_KEY = 'cachedProducts';
+  const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
   // Funkcija za preuzimanje slike hrane sa Foodish API-ja na osnovu naziva proizvoda
   const fetchFoodImage = async (productName) => {
-    const UNSPLASH_ACCESS_KEY = 'YvBxTVU_ggpMkTDjaZOyGnMh79OzyJlZUiC1D1gu9oE';  
+    const UNSPLASH_ACCESS_KEY = 'YvBxTVU_ggpMkTDjaZOyGnMh79OzyJlZUiC1D1gu9oE';
     try {
       const response = await axios.get(`https://api.unsplash.com/search/photos`, {
         params: {
@@ -26,15 +28,29 @@ const ProductCards = () => {
       return placeholderImage; // Return placeholder on error
     }
   };
-  
 
   useEffect(() => {
-    // Funkcija za preuzimanje proizvoda sa servera
     const fetchProducts = async () => {
       try {
+        // Check if cached products exist and are still valid
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        const cachedTimestamp = localStorage.getItem(`${CACHE_KEY}_timestamp`);
+
+        if (cachedData && cachedTimestamp) {
+          const age = Date.now() - parseInt(cachedTimestamp, 10);
+
+          if (age < CACHE_DURATION) {
+            // If the cache is valid, use cached data
+            setProducts(JSON.parse(cachedData));
+            setLoading(false);
+            return;
+          }
+        }
+
+        // Fetch products from server if cache is expired or does not exist
         const response = await axios.get('http://127.0.0.1:8000/api/products/all');
 
-        // Dodavanje slike za svaki proizvod
+        // Add images for each product
         const productsWithImages = await Promise.all(
           response.data.map(async (product) => {
             const imageUrl = await fetchFoodImage(product.name);
@@ -42,8 +58,13 @@ const ProductCards = () => {
           })
         );
 
+        // Store products in state and cache
         setProducts(productsWithImages);
         setLoading(false);
+
+        // Cache products and timestamp
+        localStorage.setItem(CACHE_KEY, JSON.stringify(productsWithImages));
+        localStorage.setItem(`${CACHE_KEY}_timestamp`, Date.now().toString());
       } catch (err) {
         setError('Neuspešno preuzimanje proizvoda.');
         setLoading(false);
