@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 use App\Models\Delivery;
 use App\Models\Location;
 use App\Models\Order;
@@ -53,20 +51,42 @@ class DatabaseSeeder extends Seeder
             'longitude' => 20.4489,
         ]);
 
-         // Kreiranje dva proizvoda
-         Product::create([
-            'name' => 'Product 1',
-            'description' => 'Description of product 1',
-            'price' => 10.99,
+        // Kreiranje pet proizvoda (vrste hrane)
+        Product::create([
+            'name' => 'Pizza',
+            'description' => 'Delicious cheese pizza with tomato sauce',
+            'price' => 8.99,
             'store_id' => 2, // Store User
         ]);
 
         Product::create([
-            'name' => 'Product 2',
-            'description' => 'Description of product 2',
-            'price' => 15.99,
+            'name' => 'Hamburger',
+            'description' => 'Classic beef hamburger with lettuce and tomato',
+            'price' => 5.99,
             'store_id' => 2, // Store User
         ]);
+
+        Product::create([
+            'name' => 'Sushi',
+            'description' => 'Fresh sushi with salmon and avocado',
+            'price' => 12.99,
+            'store_id' => 2, // Store User
+        ]);
+
+        Product::create([
+            'name' => 'Pasta',
+            'description' => 'Pasta with creamy Alfredo sauce',
+            'price' => 9.99,
+            'store_id' => 2, // Store User
+        ]);
+
+        Product::create([
+            'name' => 'Caesar Salad',
+            'description' => 'Fresh Caesar salad with croutons and parmesan cheese',
+            'price' => 6.99,
+            'store_id' => 2, // Store User
+        ]);
+
         // Kreiranje dve porudžbine
         Order::create([
             'customer_id' => 1, // Admin User

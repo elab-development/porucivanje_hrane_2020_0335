@@ -7,6 +7,8 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\OrderController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,6 +25,8 @@ Route::get('/deliveries/{id}', [DeliveryController::class, 'show']); // Prikaz j
 
 // Zaštita PUT, POST, DELETE ruta middleware-om auth:sanctum
 Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('/orders', [OrderController::class, 'store']);
     Route::get('/deliveries', [DeliveryController::class, 'index']); // Prikaz svih dostava ulogovanog korisnika
     Route::post('/deliveries', [DeliveryController::class, 'store']); // Kreiranje nove dostave
     Route::put('/deliveries/{id}', [DeliveryController::class, 'update']); // Ažuriranje dostave
