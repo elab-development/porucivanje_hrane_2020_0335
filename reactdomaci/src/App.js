@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AuthForm from './AuthForm';
 import ComingSoon from './ComingSoon';
 import ProductCards from './ProductCards';
+import MyOrders from './MyOrders';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -33,6 +34,8 @@ function App() {
 
     {/* za obicnog ulogovanog korisnika` */}
           <Route path="/dashboard" element={<ProductCards />} />
+          <Route path="/orders" element={<MyOrders />} />
+
 
           {/* rute za admina */}
           <Route path="/products" element={<ProductsTable />} />

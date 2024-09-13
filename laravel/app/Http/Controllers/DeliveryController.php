@@ -6,15 +6,37 @@ use App\Models\Delivery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DeliveryController extends Controller
 {
-    // Prikaz svih dostava
-    public function index()
-    {
-        $deliveries = Delivery::all();
-        return response()->json($deliveries, 200);
-    }
+ // Prikaz svih dostava
+ public function index()
+ {
+     // Get the logged-in user
+     $user = Auth::user();
+ 
+     // Fetch deliveries where the user is the customer in the related order
+     $deliveries = DB::table('deliveries')
+         ->join('orders', 'deliveries.order_id', '=', 'orders.id')
+         ->join('users as delivery_person', 'deliveries.delivery_person_id', '=', 'delivery_person.id')
+         ->join('users as store', 'orders.store_id', '=', 'store.id')  
+         ->where('orders.customer_id', $user->id)
+         ->select(
+             'deliveries.id as delivery_id',
+             'orders.id as order_id',
+             'orders.total_price',
+             'store.name as store_name',  
+             'delivery_person.name as delivery_person_name',  
+             'deliveries.estimated_time',
+             'deliveries.status'
+         )
+         ->get();
+ 
+     return response()->json($deliveries, 200);
+ }
+ 
+    
 
     // Prikaz jedne dostave
     public function show($id)

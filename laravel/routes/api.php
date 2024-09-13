@@ -18,11 +18,12 @@ use App\Http\Controllers\LocationController;
 |
 */
 
-Route::get('/deliveries', [DeliveryController::class, 'index']); // Prikaz svih dostava
+
 Route::get('/deliveries/{id}', [DeliveryController::class, 'show']); // Prikaz jedne dostave
 
 // Zaštita PUT, POST, DELETE ruta middleware-om auth:sanctum
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/deliveries', [DeliveryController::class, 'index']); // Prikaz svih dostava ulogovanog korisnika
     Route::post('/deliveries', [DeliveryController::class, 'store']); // Kreiranje nove dostave
     Route::put('/deliveries/{id}', [DeliveryController::class, 'update']); // Ažuriranje dostave
     Route::delete('/deliveries/{id}', [DeliveryController::class, 'destroy']); // Brisanje dostave
